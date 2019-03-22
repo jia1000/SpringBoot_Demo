@@ -17,3 +17,7 @@
 * 测试地址：
     http://127.0.0.1:8080/talk
     http://127.0.0.1:8080/user/1000
+#### 添加ModelAttribute的使用：
+* 关键词：@ModelAttribute、 Model
+* 测试地址：http://127.0.0.1:8080/1000/get.json
+
