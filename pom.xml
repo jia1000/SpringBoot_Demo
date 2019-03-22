@@ -37,6 +37,12 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- 引入AOP面向切面编程依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
