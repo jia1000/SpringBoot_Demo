@@ -20,4 +20,6 @@
 #### 添加ModelAttribute的使用：
 * 关键词：@ModelAttribute、 Model
 * 测试地址：http://127.0.0.1:8080/1000/get.json
-
+#### 添加Freemarker模板库的使用：
+* 关键词：freemarker库、 ModelAndView
+* 测试地址：http://127.0.0.1:8080/freemarker/showuser.html?id=11&name=zhangsan
