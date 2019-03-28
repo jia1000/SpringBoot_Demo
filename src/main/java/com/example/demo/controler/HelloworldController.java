@@ -1,11 +1,16 @@
 package com.example.demo.controler;
 
+import com.example.demo.dao.UserRepository;
+import com.example.demo.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class HelloworldController {
+    @Autowired
+    private UserRepository userRepository;
 
     // 第一个页
     @RequestMapping("/hello")
@@ -28,12 +33,13 @@ public class HelloworldController {
         return "user id : " + id;
     }
 
+    // 该函数中，有id，会造成 其它PathVariable的类型，不是Long类型，会出问题。
     // 使用ModelAttribute注解， 意味着，该方法会首先被调用，并将该方法作为Model的属性，然后再调用对应的Controller处理方法；
-    @ModelAttribute
-    public void findUserById(@PathVariable Long id, Model model) {
-        model.addAttribute("user", "zhangsan");
-        System.out.println("enter function : findUserById.");
-    }
+    //@ModelAttribute
+    //public void findUserById(@PathVariable Long id, Model model) {
+    //    model.addAttribute("user", "zhangsan");
+    //    System.out.println("enter function : findUserById.");
+    //}
 
     @GetMapping(path="/{id}/get.json")
     @ResponseBody
@@ -42,6 +48,17 @@ public class HelloworldController {
         System.out.println(model.toString());
         System.out.println("enter function : GetUser.");
         return "Success";
-
     }
+
+    // 添加用户，到数据表中
+    @RequestMapping("adduser/{user_name}")
+    @ResponseBody
+    public String addUser(@PathVariable String user_name) {
+        User user = new User();
+        user.setName(user_name);
+
+        userRepository.save(user);
+        return "user name : " + user_name;
+    }
+
 }
