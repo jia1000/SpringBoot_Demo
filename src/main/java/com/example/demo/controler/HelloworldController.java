@@ -61,4 +61,10 @@ public class HelloworldController {
         return "user name : " + user_name;
     }
 
+    // 返回一个测试用的HTML文件
+    @RequestMapping("/windows_binding_html")
+    public String showTestHtml() {
+        return "/windows_binding.html";
+    }
+
 }
