@@ -1,6 +1,8 @@
 package com.example.demo.controler;
 
+import com.example.demo.dao.DepartmentRepository;
 import com.example.demo.dao.UserRepository;
+import com.example.demo.entity.Department;
 import com.example.demo.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -12,6 +14,12 @@ import org.springframework.web.bind.annotation.*;
 public class HelloworldController {
     @Autowired
     private UserRepository userRepository;
+
+    /// 可以对类成员变量、方法及构造函数进行标注，完成自动装配的工作。
+    //  通过 @Autowired的使用来消除 set ，get方法。
+    // 没加该注解，写数据表，会失败
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
     // 第一个页
     @RequestMapping("/hello")
@@ -50,7 +58,7 @@ public class HelloworldController {
         System.out.println("enter function : GetUser.");
         return "Success";
     }
-
+    /// ------------user表的操作----------------------------------------------
     // 添加用户，到数据表中
     @RequestMapping("adduser/{user_name}")
     @ResponseBody
@@ -95,6 +103,22 @@ public class HelloworldController {
         return user_id + "'s name is " + user.getName();
     }
 
+    /// ------------department表的操作----------------------------------------------
+    // 添加用户，到数据表中
+    @RequestMapping("add_department/{department_name}")
+    @ResponseBody
+    public String addDepartment(@PathVariable String department_name) {
+
+        Department department = new Department();
+        department.setName(department_name);
+
+
+        departmentRepository.save(department);
+
+        return "department name : " + department.getName() + "  id :" + department.getId();
+    }
+
+    /// ----------------------------------------------------------
     // 返回一个测试用的HTML文件
     @RequestMapping("/windows_binding_html")
     public String showTestHtml() {

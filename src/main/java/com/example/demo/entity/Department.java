@@ -16,13 +16,15 @@ public class Department {
     private Integer id ;
     @Column
     private String name ;
-    @OneToMany(mappedBy="department")
-    private Set<User> users = new HashSet<User>();
+//    @OneToMany(mappedBy="department")
+//    private Set<User> users = new HashSet<User>();
 
 
-    public Set<User> getUsers() {
-        return users;
+    public Department() {
     }
+//    public Set<User> getUsers() {
+//        return users;
+//    }
 
     public Integer getId() {
         return id;
@@ -40,8 +42,8 @@ public class Department {
         this.name = name;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
+//    public void setUsers(Set<User> users) {
+//        this.users = users;
+//    }
 
 }
