@@ -4,6 +4,8 @@ import com.example.demo.dao.DepartmentRepository;
 import com.example.demo.dao.UserRepository;
 import com.example.demo.entity.Department;
 import com.example.demo.entity.User;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class HelloworldController {
+    // org.apache.commons.logging.Log  日志的配置
+    private Log log = LogFactory.getLog(HelloworldController.class);
+
     @Autowired
     private UserRepository userRepository;
 
