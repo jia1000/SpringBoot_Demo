@@ -13,6 +13,8 @@ import com.example.demo.entity.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
     public User findByName(String name);
 
+    public User findByid(Integer id);
+
     @Query("select u from User u where u.name=?1 and u.department.id=?2")
     public User findUserByDepartment(String name,Integer departmentId);
 

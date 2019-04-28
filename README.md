@@ -23,3 +23,24 @@
 #### 添加Freemarker模板库的使用：
 * 关键词：freemarker库、 ModelAndView
 * 测试地址：http://127.0.0.1:8080/freemarker/showuser.html?id=11&name=zhangsan
+#### 添加数据库的使用：
+* 关键词：JPA HikariCP Mysql 
+* 1、集成数据源：
+JPA 依赖：org.springframework.boot:spring-boot-starter-data-jpa
+数据源依赖：com.zaxxer:HikariCP
+数据库依赖：mysql:mysql-connector-java
+* 2、配置数据源：
+application.properties文件中增加类似于下面的：
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/test?serverTimezone=GMT
+* 3、JPA配置类：
+@Configuration
+public class DataSourceConfig {
+    @Bean(name="dataSource")
+    public DataSource datasource(Environment env) {
+        HikariDataSource ds = new HikariDataSource();  // 使用了HikariDataSource数据源
+		....		
+    }
+}
+* 4、增加实体：
+User和Department
+

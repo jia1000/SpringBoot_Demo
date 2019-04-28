@@ -3,6 +3,7 @@ package com.example.demo.controler;
 import com.example.demo.dao.UserRepository;
 import com.example.demo.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -61,10 +62,48 @@ public class HelloworldController {
         return "user name : " + user_name;
     }
 
+    // 得到user 数据表的数量
+    @RequestMapping("user_count")
+    @ResponseBody
+    public String getUserCount() {
+        Long rowCount = userRepository.count();
+        String ret = "user's count = " + rowCount;
+        return ret;
+    }
+
+    // 删除user表， 某个id    不成功
+    @RequestMapping("user_delete/{user_id}")
+    @ResponseBody
+    public String deleteUser(@PathVariable Integer user_id) {
+        userRepository.deleteById(user_id);
+        return "deleted user id : " + user_id;
+    }
+
+    // 得到user表中，某个用户的id
+    @RequestMapping("user_query_id/{user_name}")
+    @ResponseBody
+    public String queryUserId(@PathVariable String user_name) {
+        User user = userRepository.findByName(user_name);
+        return user_name + "'s id is " + user.getId();
+    }
+
+    // 得到user表中，某个id的用户的名称
+    @RequestMapping("user_query_name/{user_id}")
+    @ResponseBody
+    public String queryUserName(@PathVariable Integer user_id) {
+        User user = userRepository.findByid(user_id);
+        return user_id + "'s name is " + user.getName();
+    }
+
     // 返回一个测试用的HTML文件
     @RequestMapping("/windows_binding_html")
     public String showTestHtml() {
         return "/windows_binding.html";
     }
 
+    // 返回一个测试用的HTML2文件
+    @RequestMapping("/buffer_html")
+    public String showTestBufferHtml() {
+        return "/buffer.html";
+    }
 }
