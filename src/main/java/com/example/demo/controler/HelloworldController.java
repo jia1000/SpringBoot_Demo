@@ -1,5 +1,6 @@
 package com.example.demo.controler;
 
+import com.example.demo.config.ServerConfig;
 import com.example.demo.dao.DepartmentRepository;
 import com.example.demo.dao.UserRepository;
 import com.example.demo.entity.Department;
@@ -7,6 +8,8 @@ import com.example.demo.entity.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -134,5 +137,35 @@ public class HelloworldController {
     @RequestMapping("/buffer_html")
     public String showTestBufferHtml() {
         return "/buffer.html";
+    }
+
+    /// -----------读取应用配置-----------------------------------------------
+    // 读取应用配置方式1：直接使用Environment，利用key-value获取。
+    @Autowired private Environment env;
+    public int getServerPortInt() {
+        return  env.getProperty("server.port", Integer.class);
+    }
+    @RequestMapping("/server_port_by_env")
+    @ResponseBody
+    public String getServerPortByEnv() {
+        return "server port by evn: " + getServerPortInt();
+    }
+
+    // 读取应用配置方式2：直接通过@Value注解，注入一个配置信息到Spring管理的Bean中
+    @RequestMapping("/server_port_by_value")
+    @ResponseBody
+    public String getServerPortByValue(@Value("${server.port}") int port) {
+        return "server port by value:" + port;
+    }
+
+    // 读取应用配置方式3：将一组同样类型的配置属性，映射为一个类。
+    // 使用注解@ConfigurationProperties和@Configuration。
+    @Autowired
+    private ServerConfig serverconfig;
+
+    @RequestMapping("/server_port_by_class")
+    @ResponseBody
+    public String getServerPortByClass() {
+        return "server port by Class  1:" + serverconfig.getPort();
     }
 }
