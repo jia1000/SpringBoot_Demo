@@ -69,13 +69,29 @@
             var maxcount = 2;
             for (var i = 1; i <= maxcount; i++) {
                 var counter = i % 286 === 0 ? 1 : i % 286;
-                var url = "http://buffer/" + counter;
+                var url = "http://buffer_image/" + counter;
                 var islastone = i == maxcount;
                 
                 sendGet(url, displayContent, islastone);
                 //sendGetSync(url, displayContent, islastone);
             }
         }
+        // 显示图像
+        function doShowImageInCanvas() {
+            clearTime("#begintime");
+            clearTime("#middletime");
+
+            writeTime("#begintime", "Begin");
+
+            var file_name = $("#image_name_edit").val();
+            var url = "http://local_image/" + file_name;
+            var islastone = true;
+
+            sendGet(url, displayContent, islastone);
+
+        }
+
+
         ///显示图像和信息
         function displayContent(text, finished) {
             var myDate = new Date();
@@ -92,10 +108,11 @@
         }
         ///异步方式发送GET请求
         function sendGet(url, callback, params) {
-
             oReq = new XMLHttpRequest();
             oReq.open("GET", url, true);
             oReq.responseType = "arraybuffer";
+            // oReq.responseType = "text";
+            // 请求成功回调函数
             oReq.onload = function (oEvent) {
                 var arrayBuffer = oReq.response; // Note: not oReq.responseText
                 if (arrayBuffer) {
@@ -103,7 +120,9 @@
                 }
             };
             oReq.ontimeout = function (e) { alert("ontimeout"); };
-            oReq.onerror = function (e) { alert("onerror" + oReq.status); };
+            oReq.onerror = function (e) {
+                alert("onerror-status : " + oReq.status + "status.text: " + oReq.statusText + "....");
+            };
             oReq.onloadend = function (e) {  };
             oReq.send(null);
         }
@@ -159,10 +178,26 @@
             reader.readAsArrayBuffer(currFilePath);//读取文件 
             reader.onload = function (evt) { //读取完文件之后会回来这里
                 var fileString = evt.target.result; // 读取文件内容
-                alert(fileString);
-                var url = 'http://postdata/';
+                //alert(fileString);
+                var url = 'http://buffer_image/';
                 var xhr = new XMLHttpRequest();
                 xhr.open('POST', url, true);
+                xhr.responseType = "arraybuffer";
+
+                // 请求成功回调函数
+                xhr.onload = function (oEvent) {
+                    var arrayBuffer = xhr.response; // Note: not oReq.responseText
+
+                    if (arrayBuffer) {
+                        displayContent(xhr.response, true);
+                    }
+                };
+                xhr.ontimeout = function (e) { alert("ontimeout"); };
+                xhr.onerror = function (e) {
+                    alert("onerror-status : " + xhr.status + "status.text: " + xhr.statusText + "....");
+                };
+                xhr.onloadend = function (e) {   };
+
                 xhr.send(fileString);
             }
         }
@@ -270,6 +305,11 @@
 <body style="background:#FFF;">
     <div style="margin-bottom:20px;">
         <input type="button" value="性能测试" onclick="doTestPerformance();" /><br /><br />
+        <select id="image_name_edit" title="显示图像的名称" >
+            <option>1</option>
+            <option>2</option>
+        </select>
+        <input type="button" value="显示图片" onclick="doShowImageInCanvas();" /><br /><br />
         <input type="file" id="postFile" onchange="jsReadFiles(this.files)" title="选择图像文件" />
         <input type="button" value="发送文件到C++" onclick="doPostFile();" /><br /><br />
         <input type="text" id="postText" title="需要发送到C++的文本" />
