@@ -139,6 +139,11 @@ public class HelloworldController {
         return "/buffer.html";
     }
 
+    // 返回一个测试用的HTML2文件,该html会是一个精简型，从0开始所需的功能
+    @RequestMapping("/buffer_html2")
+    public String showTestBufferHtml2() {
+        return "/buffer2.html";
+    }
     /// -----------读取应用配置-----------------------------------------------
     // 读取应用配置方式1：直接使用Environment，利用key-value获取。
     @Autowired private Environment env;

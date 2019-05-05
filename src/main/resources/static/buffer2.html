@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery/1.11.3/jquery-ui.min.css">
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery-ui.min.js"></script>
+
+    <script language="JavaScript">
+
+        /// 点击“发送字符串到C++”后， c++端返回命令，用来显示发送的次数
+        function jsSendCount(text) {
+           // $("#send_count").text = text;
+           //  alert(text);
+            var t = document.getElementById("recv_text");
+            t.value = text;
+        }
+
+        ///发送字符串到C++ 使用json
+        function doPostStringUesJson() {
+            var text1 = $("#request_type").val();
+            var text2 = $("#image_operation").val();
+            var text3 = $("#image_paras").val();
+            var json_data = {};
+            json_data.request_type = text1;
+            json_data.image_operation = text2;
+            json_data.image_paras = text3;
+            var json_str = JSON.stringify(json_data);
+
+            // var url = 'http://postdata/';
+            var url = 'http://image_operation/';
+
+            var xhr = new XMLHttpRequest();
+            //  第3个参数async为true，表示为异步，否则为同步
+            xhr.open('POST', url, true);
+            xhr.send(json_str);
+        }
+
+    </script>
+</head>
+
+<body style="background:#FFF;">
+    <div style="margin-bottom:20px;">
+        <select id="request_type" text="operation" title="request_type" >
+            <option>MPR</option>
+            <option>VR</option>
+            <option>CPR</option>
+        </select>
+        <select id="image_operation" text="operation" title="operation" >
+            <option>WL</option>
+            <option>Zoom</option>
+            <option>Rotate</option>
+            <option>Move</option>
+        </select>
+        <select id="image_paras" text="paras" title="paras" >
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+        </select>
+
+        <input type="button" value="发送字符串到C++" onclick="doPostStringUesJson();" />
+        <br />
+        <label>发送文本</label>
+        <form >
+            <textarea  id="recv_text" cols="50" rows="10" >在这里输入内容...</textarea>
+        </form>
+    </div>
+
+    <!-- display image -->
+    <div>
+        <img src="#" id="imgtag" title="load image through http request..." />
+    </div>
+
+</body>
+</html>
