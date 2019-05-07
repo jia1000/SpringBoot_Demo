@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.example.demo.entity.User;
 
+// JPA使用： 4、存储库接口设计：为实体创建一个存储库接口，就可以实现实体的持久化
 public interface UserRepository extends JpaRepository<User, Integer> {
     public User findByName(String name);
 

@@ -6,6 +6,7 @@ import org.springframework.core.env.Environment;
 import com.zaxxer.hikari.HikariDataSource;
 import javax.sql.DataSource;
 
+// JPA使用：2、JPA配置类：从配置属性文件中，获取相关配置
 @Configuration
 public class DataSourceConfig {
 

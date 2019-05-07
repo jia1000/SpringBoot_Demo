@@ -13,7 +13,12 @@ import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class HelloworldController {
@@ -66,6 +71,7 @@ public class HelloworldController {
         System.out.println("enter function : GetUser.");
         return "Success";
     }
+    // JPA使用：5、数据表操作，如，插入、删除、修改等
     /// ------------user表的操作----------------------------------------------
     // 添加用户，到数据表中
     @RequestMapping("adduser/{user_name}")
@@ -109,6 +115,22 @@ public class HelloworldController {
     public String queryUserName(@PathVariable Integer user_id) {
         User user = userRepository.findByid(user_id);
         return user_id + "'s name is " + user.getName();
+    }
+
+    // JPA使用：6、建立查询函数接口
+    // 得到user表中，某个id的用户数据
+    @GetMapping("/user_query_view/{user_id}")
+    public ModelAndView queryUserById(@PathVariable Integer user_id, ModelMap model) {
+        User user = userRepository.findByid(user_id);
+        // 使用模板库Freemarker，建立视图view
+        ModelAndView view = new ModelAndView();
+        // 给模板视图的变量， 设置新值
+        view.addObject("user_id", user.getId());
+        view.addObject("user_name", user.getName());
+        // 设置模板视图的名称， 会自动添加后缀ftl
+        view.setViewName("/user_statics");
+        // 返回指向的模板文件
+        return  view;
     }
 
     /// ------------department表的操作----------------------------------------------
