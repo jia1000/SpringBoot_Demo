@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -79,6 +80,7 @@ public class HelloworldController {
     public String addUser(@PathVariable String user_name) {
         User user = new User();
         user.setName(user_name);
+        user.setCreateTime(new Date());
 
         userRepository.save(user);
         return "user name : " + user_name;
@@ -137,15 +139,13 @@ public class HelloworldController {
     // 添加用户，到数据表中
     @RequestMapping("add_department/{department_name}")
     @ResponseBody
-    public String addDepartment(@PathVariable String department_name) {
-
+    public Department addDepartment(@PathVariable String department_name) {
         Department department = new Department();
         department.setName(department_name);
 
-
         departmentRepository.save(department);
 
-        return "department name : " + department.getName() + "  id :" + department.getId();
+        return department;
     }
 
     /// ----------------------------------------------------------

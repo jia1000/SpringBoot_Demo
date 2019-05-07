@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,8 +15,11 @@ import javax.persistence.OneToMany;
 public class Department {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+//    修改输出为json字符串时的顺序
+    @JSONField(ordinal = 2)
     private Integer id ;
     @Column
+    @JSONField(ordinal = 1)
     private String name ;
 //    @OneToMany(mappedBy="department")
 //    private Set<User> users = new HashSet<User>();
