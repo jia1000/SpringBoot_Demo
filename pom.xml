@@ -49,6 +49,12 @@
             <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
 
+        <!-- 引入Thymeleaf 视图模板库 依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
         <!-- 引入 数据库 JPA 依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
