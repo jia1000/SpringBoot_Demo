@@ -123,17 +123,19 @@
         <br />
 
         <select id="request_type" text="operation" title="request_type" >
-            <option>MPR</option>
             <option>VR</option>
+            <option>MPR</option>
             <option>CPR</option>
         </select>
         <select id="image_operation" text="operation" title="operation" >
             <option>Zoom</option>
+            <option>Skip</option>
             <option>Rotate</option>
             <option>Move</option>
             <option>WL</option>
         </select>
         <select id="image_paras" text="paras" title="paras" >
+            <option>1.0</option>
             <option>0.1</option>
             <option>0.2</option>
             <option>0.3</option>
@@ -143,7 +145,8 @@
             <option>0.7</option>
             <option>0.8</option>
             <option>0.9</option>
-            <option>1.0</option>
+            <option>2.0</option>
+            <option>3.0</option>
         </select>
 
         <input type="button" value="发送字符串到C++" onclick="doPostStringUesJson();" />
