@@ -8,8 +8,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/jquery/1.11.3/jquery-ui.min.css">
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery-ui.min.js"></script>
 
-    <script language="JavaScript">
+    <script language="JavaScript" type="text/javascript">
         var currFilePath;
+        var currFilePaths;
+        var read_begin_index;
+        read_begin_index = 0;
 
         /// 点击“发送字符串到C++”后， c++端返回命令，用来显示发送的次数
         function jsSendCount(text) {
@@ -18,7 +21,82 @@
         }
 
         ///发送字符串到C++ 使用json
+        function doPostMultiFilesUesJson() {
+            if(read_begin_index === 0) {
+                // alert("is zero");
+                clearTime("#begintime",     "begintime : ");
+                clearTime("#middletime",   "middletime : ");
+                clearTime("#endtime",       "endtime   : ");
+                writeTime("#begintime", " - begintime");
+            }
+            // for(var i = 0; i < this.currFilePaths.length; i++) {
+            //     alert("file yy: " + currFilePaths[i].name);
+            // }
+            // var text1 = $("#request_type").val();
+            // var text2 = $("#image_operation").val();
+            // var text3 = $("#image_paras").val();
+            // var text4 = $("#postDir").val();
+
+            // alert("index :" + this.read_begin_index + ": length: " + this.currFilePaths.length);
+            if(this.read_begin_index < this.currFilePaths.length){
+                // alert("index: " + this.read_begin_index);
+                var file = this.currFilePaths[this.read_begin_index];
+                // read file content.
+                var reader = new FileReader();
+                reader.readAsArrayBuffer(file);
+
+                reader.onload = function(evt){
+                    // alert("file onloaded");
+                    var fileString = evt.target.result; // 读取文件内容
+
+                    // alert(this.read_begin_index);
+                    var text1 = $("#request_type").val();
+                    var text2 = $("#image_operation").val();
+                    var text3 = $("#image_paras").val();
+
+                    var json_data = {};
+                    json_data.request_type = text1;
+                    json_data.image_operation = text2;
+                    json_data.image_paras = text3;
+                    json_data.image_data = arraybuffer2base64(fileString);
+                    json_data.image_sequence = read_begin_index.toString(10);
+                    // json_data.file_index = this.read_begin_index;//error
+                    // json_data.file_index = text1;//this.read_begin_index.toString(10);
+
+                    var json_str = JSON.stringify(json_data);
+                    var url = 'http://image_operation/';
+
+                    var xhr = new XMLHttpRequest();
+                    //  第3个参数async为true，表示为异步，否则为同步
+                    xhr.open('POST', url, true);
+                    xhr.responseType = "text";"arraybuffer";
+
+                    // 请求成功回调函数
+                    xhr.onload = function (oEvent) {
+                        // alert("onload");
+                        var arrayBuffer = xhr.response;
+                        if (arrayBuffer) {
+                            // displayContent(xhr.response, true);
+                        }
+                        writeTime("#endtime", " - endtime");
+                    };
+
+                    read_begin_index += 1;
+                    xhr.send(json_str);
+                    // alert(read_begin_index);
+                    doPostMultiFilesUesJson();
+                }
+            }
+        }
+
+        ///发送字符串到C++ 使用json
         function doPostStringUesJson() {
+            clearTime("#begintime",     "begintime : ");
+            clearTime("#middletime",   "middletime : ");
+            clearTime("#endtime",       "endtime   : ");
+
+            writeTime("#begintime", " - begintime");
+
             //缓存的file对象
             if (currFilePath === undefined) return;
 
@@ -26,6 +104,8 @@
             var reader = new FileReader();//新建一个FileReader
             reader.readAsArrayBuffer(currFilePath);//读取文件
             reader.onload = function (evt) { //读取完文件之后会回来这里
+                writeTime("#middletime", " - middletime");
+
                 var fileString = evt.target.result; // 读取文件内容
 
                 var text1 = $("#request_type").val();
@@ -37,6 +117,7 @@
                 json_data.image_operation = text2;
                 json_data.image_paras = text3;
                 json_data.image_data = arraybuffer2base64(fileString);
+                // json_data.file_index = 4;
 
                 var json_str = JSON.stringify(json_data);
                 var url = 'http://image_operation/';
@@ -51,6 +132,8 @@
                     var arrayBuffer = xhr.response;
                     if (arrayBuffer) {
                         displayContent(xhr.response, true);
+
+                        writeTime("#endtime", " - endtime");
                     }
                 };
                 xhr.ontimeout = function (e) {
@@ -112,6 +195,29 @@
                 //缓存文件路径
                 currFilePath = files[0];
             }
+            read_begin_index = 0;
+            currFilePaths = files;
+            // alert("file count: " + currFilePaths.length);
+            // for(var i = 0; i < currFilePaths.length ; i++) {
+            //     alert("file name: " + currFilePaths[i].name);
+            // }
+        }
+
+
+        // ///写时间标签的函数
+        // function clearTime(tagid) {
+        //     $(tagid).html("");
+        // }
+        ///写时间标签的函数
+        function clearTime(tagid, timestr) {
+            $(tagid).html(timestr);
+        }
+        ///写时间标签的函数
+        function writeTime(tagid, timestr) {
+            var myDate      = new Date();
+            var timestring  = myDate.toLocaleString();
+            var milisec     = myDate.getMilliseconds();
+            $(tagid).html(timestring + "." + milisec + " : " + timestr);
         }
 
     </script>
@@ -119,13 +225,12 @@
 
 <body style="background:#FFF;">
     <div style="margin-bottom:20px;">
-        <input type="file" id="postFile" onchange="jsReadFiles(this.files)" title="选择图像文件" />
-        <br />
+
 
         <select id="request_type" text="operation" title="request_type" >
+            <option>CPR</option>
             <option>VR</option>
             <option>MPR</option>
-            <option>CPR</option>
         </select>
         <select id="image_operation" text="operation" title="operation" >
             <option>Zoom</option>
@@ -148,8 +253,20 @@
             <option>2.0</option>
             <option>3.0</option>
         </select>
+        <br />
 
+        <input type="file" id="postFile" onchange="jsReadFiles(this.files)" title="选择图像文件" />
         <input type="button" value="发送字符串到C++" onclick="doPostStringUesJson();" />
+        <br />
+
+        <!-- timer -->
+        <p id="begintime">begin time:</p>
+        <p id="middletime">middle time:</p>
+        <p id="endtime">end time: </p>
+
+        <!--<input type="file" id="postDir"  multiple webkitdirectory onchange="jsReadFiles(this.files)" title="选择图像目录" />-->
+        <input type="file" id="postDir"  multiple onchange="jsReadFiles(this.files)" title="选择图像目录" />
+        <input type="button" value="发送一组Dicom文件到C++" onclick="doPostMultiFilesUesJson();" />
         <br /><br />
 
         <label>发送文本</label>
