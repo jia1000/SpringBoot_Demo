@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf test</title>
+</head>
+<body>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <th class="text-center>">id</th>
+            <th class="text-center">name</th>
+        </thead>
+        <tbody class="text-center">
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}">id号</td>
+                <td th:text="${user.name}">name姓名</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
