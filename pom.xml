@@ -127,6 +127,13 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.35</version>
         </dependency>
+
+        <!-- 引入 文件上传fileupload 依赖-->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3.1</version>
+        </dependency>
     </dependencies>
 
     <build>
