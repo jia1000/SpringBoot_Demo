@@ -7,10 +7,13 @@ import org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfigura
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.multipart.MultipartResolver;
 
 @SpringBootApplication
 @Configuration
+// 定时任务 ： 1、添加注解
+@EnableScheduling
 public class DemoApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
