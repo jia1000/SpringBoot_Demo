@@ -7,13 +7,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController
+// 如果使用RestController注解，是不能使用Thymeleaf模板的，只能使用@Controller
+@Controller
 @RequestMapping("/student")
 public class StudentController {
 
@@ -56,19 +59,28 @@ public class StudentController {
     @GetMapping(value = "/get_by_name/{name}")
     @ResponseBody
     public Student queryStudentByName(@PathVariable(value="name") String name) {
-        // 后面还有添加get()函数，之前，一直没注意该接口
         Student student = studentRepository.findByName(name);
         return  student;
     }
 
-    // 2-3、 查询全部
+    // 2-3-1、 查询全部
     // 测试url ：http://127.0.0.1:8080/student/get_all
     @RequestMapping("/get_all")
     @ResponseBody
     public List<Student> queryAllStudent() {
-        // 后面还有添加get()函数，之前，一直没注意该接口
         List<Student> students = studentRepository.findAll();
         return  students;
+    }
+
+    // 2-3-2、 查询全部，但使用模板html显示数据
+    // 测试url ：http://127.0.0.1:8080/student/show_all
+    @RequestMapping("/show_all")
+    public String showAllStudentWithHtml(Model model) throws Exception {
+        List<Student> students = studentRepository.findAll();
+
+        model.addAttribute("hello","Student'Table Info!");
+        model.addAttribute("students", students);
+        return "test_thymeleaf2_student";
     }
 
     // 2-4、 查询-使用分页Page
@@ -91,7 +103,6 @@ public class StudentController {
     @ResponseBody
     public String deleteStudent(@PathVariable(value="id") Integer id) {
         Student student = studentRepository.findById(id).get();
-//        studentRepository.deleteById(id);
         studentRepository.deleteByStudentId(id);
         return "delete student name : " + student.getName();
     }
