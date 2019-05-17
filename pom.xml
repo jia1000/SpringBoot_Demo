@@ -126,7 +126,14 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.35</version>
-        </dependency> 
+        </dependency>
+
+        <!-- 引入uploadfile : MultipartFile  依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-service</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
