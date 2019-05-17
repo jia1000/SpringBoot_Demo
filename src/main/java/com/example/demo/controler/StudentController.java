@@ -78,7 +78,7 @@ public class StudentController {
     public String showAllStudentWithHtml(Model model) throws Exception {
         List<Student> students = studentRepository.findAll();
 
-        model.addAttribute("hello","Student'Table Info!");
+        model.addAttribute("hello","用户列表");
         model.addAttribute("students", students);
         return "test_thymeleaf2_student";
     }
