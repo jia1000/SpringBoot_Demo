@@ -17,7 +17,7 @@ import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RabbitMQController {
+public class RabbitMQControllerTest {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
