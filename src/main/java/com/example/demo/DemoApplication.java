@@ -12,6 +12,7 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.multipart.MultipartResolver;
 
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartResolver;
 @Configuration
 @EnableScheduling  // 定时任务 ： 1、添加注解
 @EnableRabbit       // 启动Rabbit AMQP
+@EnableAsync        // 启动异步任务
 public class DemoApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
