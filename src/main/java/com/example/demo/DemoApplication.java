@@ -1,8 +1,11 @@
 package com.example.demo;
 
 import org.apache.coyote.http11.AbstractHttp11Protocol;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration;
 import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
@@ -14,8 +17,8 @@ import org.springframework.web.multipart.MultipartResolver;
 
 @SpringBootApplication
 @Configuration
-// 定时任务 ： 1、添加注解
-@EnableScheduling
+@EnableScheduling  // 定时任务 ： 1、添加注解
+@EnableRabbit       // 启动Rabbit AMQP
 public class DemoApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
