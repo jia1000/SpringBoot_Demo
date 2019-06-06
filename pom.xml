@@ -83,8 +83,10 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-            <!-- <version>6.0.5</version> -->
+            <!--<scope>runtime</scope>-->
+            <!-- mybatis 使用：4、在引入mybaits自动生成配置功能时， 不升级到版本8，会有caching_sha2_password告警 -->
+            <!-- 有可能引起 driver-class-name=com.mysql.cj.jdbc.Driver 变为 com.mysql.jdbc.Driver -->
+             <version>8.0.11</version>
         </dependency>
 
         <!-- 引入 ? 依赖 -->
@@ -136,11 +138,12 @@
             <version>1.2.35</version>
         </dependency>
 
-        <!-- 引入uploadfile : MultipartFile  依赖-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web-service</artifactId>
-        </dependency>
+        <!-- mybatis 使用：3、 引入Mybaits自动生成依赖时，这里会报错， 先关闭-->
+        <!--&lt;!&ndash; 引入uploadfile : MultipartFile  依赖&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-web-service</artifactId>-->
+        <!--</dependency>-->
 
     </dependencies>
 
@@ -155,6 +158,42 @@
                         true
                     </fork>
                 </configuration>
+            </plugin>
+            <!-- mybatis 使用：1、添加mybatis自动生成嵌入依赖 -->
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <configuration>
+                    <configurationFile>src/main/resources/mybatis/generatorConfig.xml</configurationFile>
+                    <verbose>true</verbose>
+                    <overwrite>true</overwrite>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>Generate MyBatis Artifacts</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.mybatis.generator</groupId>
+                        <artifactId>mybatis-generator-core</artifactId>
+                        <version>1.3.2</version>
+                    </dependency>
+                    <!-- mybatis 使用： 需要在此处添加MYSQL依赖 -->
+                    <!-- 不添加，会造成 无法连接sql-->
+                    <!-- 引入 数据库驱动 依赖 -->
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <!--<scope>runtime</scope>-->
+                        <!-- mybatis 使用：5、使用较早版本，会有个caching_sha2_password的告警 -->
+                         <version>8.0.11</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

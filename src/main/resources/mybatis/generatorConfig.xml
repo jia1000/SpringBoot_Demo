@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!-- mybatis 使用：2、注册URI：“setting”-“Languages & Framework”-“Schemas and DTDS” -->
+<generatorConfiguration>
+    <!-- mybatis 使用：6 -->
+    <!-- 数据库驱动包位置 -->
+    <!--<classPathEntry location="..\apv-common-db\src\main\java\tool\mysql-connector-java-5.1.34.jar" />-->
+    <!-- <classPathEntry location="C:\oracle\product\10.2.0\db_1\jdbc\lib\ojdbc14.jar" />-->
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!-- 数据库链接URL、用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=GMT"
+                        userId="root"
+                        password="654321">
+            <!--<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@localhost:1521:orcl" userId="msa" password="msa">-->
+        </jdbcConnection>
+        <javaTypeResolver>
+            <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- 生成模型的包名和位置 -->
+        <javaModelGenerator targetPackage="com.example.demo.entity.blog" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 生成的映射文件包名和位置 -->
+        <sqlMapGenerator targetPackage="mybatis.blog" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- 生成DAO的包名和位置 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.demo.dao.blog" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <!-- 要生成那些表(更改tableName和domainObjectName就可以) -->
+        <!--<table tableName="user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+        <table tableName="user_token" domainObjectName="UserToken" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />-->
+        <!--<table tableName="categorys_conf" domainObjectName="CategorysConf" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />-->
+        <!--<table tableName="search_keyword_disease" domainObjectName="SearchKeywordHistory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />-->
+        <table tableName="user" domainObjectName="TableUser" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <!--驼峰-->
+            <property name="useActualColumnNames" value="true"/>
+
+            <!-- dhl
+            ignoreColumn设置一个MGB忽略的列，如果设置了该列，那么在生成的domain中，生成的SQL中，都不会有该列出现
+            column:指定要忽略的列的名字；
+            delimitedColumnName：参考table元素的delimitAllColumns配置，默认为false
+            注意，一个table元素中可以有多个ignoreColumn元素
+            -->
+
+            <!--
+            <ignoreColumn column="createTime" delimitedColumnName=""/>
+            <ignoreColumn column="creationTime" delimitedColumnName=""/>
+            <ignoreColumn column="updateTime" delimitedColumnName=""/>
+            -->
+
+            <!-- dhl 防止某一列生成带Blob的实体 -->
+
+            <!--
+            <columnOverride column="main" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="history" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="now" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="mri" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="pathology" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="diagnosticIdeas" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="inOperation" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="t1wiSignal" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="t2wiSignal" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="t1wiEnhanceShow" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="t2FLAIRSignal" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="pwi" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="swi" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="dwi" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="mapPathAndSickPath" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="adc" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="adcImages" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="mrs" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="bloodExamination" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="ctImages" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="mrsImages" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="bloodExaminationImages" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="ct" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            -->
+
+        </table>
+    </context>
+</generatorConfiguration>
