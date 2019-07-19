@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.blog.TableTbBlogMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.blog.TableTbBlog" >
+    <id column="blog_id" property="blog_id" jdbcType="BIGINT" />
+    <result column="blog_title" property="blog_title" jdbcType="VARCHAR" />
+    <result column="blog_sub_url" property="blog_sub_url" jdbcType="VARCHAR" />
+    <result column="blog_cover_image" property="blog_cover_image" jdbcType="VARCHAR" />
+    <result column="blog_category_id" property="blog_category_id" jdbcType="INTEGER" />
+    <result column="blog_category_name" property="blog_category_name" jdbcType="VARCHAR" />
+    <result column="blog_tags" property="blog_tags" jdbcType="VARCHAR" />
+    <result column="blog_status" property="blog_status" jdbcType="TINYINT" />
+    <result column="blog_views" property="blog_views" jdbcType="BIGINT" />
+    <result column="enable_comment" property="enable_comment" jdbcType="TINYINT" />
+    <result column="is_deleted" property="is_deleted" jdbcType="TINYINT" />
+    <result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.example.demo.entity.blog.TableTbBlog" extends="BaseResultMap" >
+    <result column="blog_content" property="blog_content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    blog_id, blog_title, blog_sub_url, blog_cover_image, blog_category_id, blog_category_name, 
+    blog_tags, blog_status, blog_views, enable_comment, is_deleted, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    blog_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_blog
+    where blog_id = #{blog_id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_blog
+    where blog_id = #{blog_id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.blog.TableTbBlog" >
+    insert into tb_blog (blog_id, blog_title, blog_sub_url, 
+      blog_cover_image, blog_category_id, blog_category_name, 
+      blog_tags, blog_status, blog_views, 
+      enable_comment, is_deleted, create_time, 
+      update_time, blog_content)
+    values (#{blog_id,jdbcType=BIGINT}, #{blog_title,jdbcType=VARCHAR}, #{blog_sub_url,jdbcType=VARCHAR}, 
+      #{blog_cover_image,jdbcType=VARCHAR}, #{blog_category_id,jdbcType=INTEGER}, #{blog_category_name,jdbcType=VARCHAR}, 
+      #{blog_tags,jdbcType=VARCHAR}, #{blog_status,jdbcType=TINYINT}, #{blog_views,jdbcType=BIGINT}, 
+      #{enable_comment,jdbcType=TINYINT}, #{is_deleted,jdbcType=TINYINT}, #{create_time,jdbcType=TIMESTAMP}, 
+      #{update_time,jdbcType=TIMESTAMP}, #{blog_content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.entity.blog.TableTbBlog" >
+    insert into tb_blog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="blog_id != null" >
+        blog_id,
+      </if>
+      <if test="blog_title != null" >
+        blog_title,
+      </if>
+      <if test="blog_sub_url != null" >
+        blog_sub_url,
+      </if>
+      <if test="blog_cover_image != null" >
+        blog_cover_image,
+      </if>
+      <if test="blog_category_id != null" >
+        blog_category_id,
+      </if>
+      <if test="blog_category_name != null" >
+        blog_category_name,
+      </if>
+      <if test="blog_tags != null" >
+        blog_tags,
+      </if>
+      <if test="blog_status != null" >
+        blog_status,
+      </if>
+      <if test="blog_views != null" >
+        blog_views,
+      </if>
+      <if test="enable_comment != null" >
+        enable_comment,
+      </if>
+      <if test="is_deleted != null" >
+        is_deleted,
+      </if>
+      <if test="create_time != null" >
+        create_time,
+      </if>
+      <if test="update_time != null" >
+        update_time,
+      </if>
+      <if test="blog_content != null" >
+        blog_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="blog_id != null" >
+        #{blog_id,jdbcType=BIGINT},
+      </if>
+      <if test="blog_title != null" >
+        #{blog_title,jdbcType=VARCHAR},
+      </if>
+      <if test="blog_sub_url != null" >
+        #{blog_sub_url,jdbcType=VARCHAR},
+      </if>
+      <if test="blog_cover_image != null" >
+        #{blog_cover_image,jdbcType=VARCHAR},
+      </if>
+      <if test="blog_category_id != null" >
+        #{blog_category_id,jdbcType=INTEGER},
+      </if>
+      <if test="blog_category_name != null" >
+        #{blog_category_name,jdbcType=VARCHAR},
+      </if>
+      <if test="blog_tags != null" >
+        #{blog_tags,jdbcType=VARCHAR},
+      </if>
+      <if test="blog_status != null" >
+        #{blog_status,jdbcType=TINYINT},
+      </if>
+      <if test="blog_views != null" >
+        #{blog_views,jdbcType=BIGINT},
+      </if>
+      <if test="enable_comment != null" >
+        #{enable_comment,jdbcType=TINYINT},
+      </if>
+      <if test="is_deleted != null" >
+        #{is_deleted,jdbcType=TINYINT},
+      </if>
+      <if test="create_time != null" >
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null" >
+        #{update_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="blog_content != null" >
+        #{blog_content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.blog.TableTbBlog" >
+    update tb_blog
+    <set >
+      <if test="blog_title != null" >
+        blog_title = #{blog_title,jdbcType=VARCHAR},
+      </if>
+      <if test="blog_sub_url != null" >
+        blog_sub_url = #{blog_sub_url,jdbcType=VARCHAR},
+      </if>
+      <if test="blog_cover_image != null" >
+        blog_cover_image = #{blog_cover_image,jdbcType=VARCHAR},
+      </if>
+      <if test="blog_category_id != null" >
+        blog_category_id = #{blog_category_id,jdbcType=INTEGER},
+      </if>
+      <if test="blog_category_name != null" >
+        blog_category_name = #{blog_category_name,jdbcType=VARCHAR},
+      </if>
+      <if test="blog_tags != null" >
+        blog_tags = #{blog_tags,jdbcType=VARCHAR},
+      </if>
+      <if test="blog_status != null" >
+        blog_status = #{blog_status,jdbcType=TINYINT},
+      </if>
+      <if test="blog_views != null" >
+        blog_views = #{blog_views,jdbcType=BIGINT},
+      </if>
+      <if test="enable_comment != null" >
+        enable_comment = #{enable_comment,jdbcType=TINYINT},
+      </if>
+      <if test="is_deleted != null" >
+        is_deleted = #{is_deleted,jdbcType=TINYINT},
+      </if>
+      <if test="create_time != null" >
+        create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null" >
+        update_time = #{update_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="blog_content != null" >
+        blog_content = #{blog_content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where blog_id = #{blog_id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.demo.entity.blog.TableTbBlog" >
+    update tb_blog
+    set blog_title = #{blog_title,jdbcType=VARCHAR},
+      blog_sub_url = #{blog_sub_url,jdbcType=VARCHAR},
+      blog_cover_image = #{blog_cover_image,jdbcType=VARCHAR},
+      blog_category_id = #{blog_category_id,jdbcType=INTEGER},
+      blog_category_name = #{blog_category_name,jdbcType=VARCHAR},
+      blog_tags = #{blog_tags,jdbcType=VARCHAR},
+      blog_status = #{blog_status,jdbcType=TINYINT},
+      blog_views = #{blog_views,jdbcType=BIGINT},
+      enable_comment = #{enable_comment,jdbcType=TINYINT},
+      is_deleted = #{is_deleted,jdbcType=TINYINT},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP},
+      blog_content = #{blog_content,jdbcType=LONGVARCHAR}
+    where blog_id = #{blog_id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.blog.TableTbBlog" >
+    update tb_blog
+    set blog_title = #{blog_title,jdbcType=VARCHAR},
+      blog_sub_url = #{blog_sub_url,jdbcType=VARCHAR},
+      blog_cover_image = #{blog_cover_image,jdbcType=VARCHAR},
+      blog_category_id = #{blog_category_id,jdbcType=INTEGER},
+      blog_category_name = #{blog_category_name,jdbcType=VARCHAR},
+      blog_tags = #{blog_tags,jdbcType=VARCHAR},
+      blog_status = #{blog_status,jdbcType=TINYINT},
+      blog_views = #{blog_views,jdbcType=BIGINT},
+      enable_comment = #{enable_comment,jdbcType=TINYINT},
+      is_deleted = #{is_deleted,jdbcType=TINYINT},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP}
+    where blog_id = #{blog_id,jdbcType=BIGINT}
+  </update>
+</mapper>
