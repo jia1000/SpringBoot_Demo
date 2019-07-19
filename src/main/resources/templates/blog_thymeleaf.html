@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Thymeleaf test</title>
+    <style>
+        table{
+            width: 600px;
+            border: 2px solid #e33d00;
+            text-align: center;
+        }
+        thead{
+            background-color: orangered;
+        }
+    </style>
+</head>
+<body class="container">
+    <br/>
+    <h1 th:text="${headtext}">标题</h1>
+    <div class="with:80%">
+        <table  class="table table-hover">
+            <thead>
+                <tr>
+                    <th >id</th>
+                    <th >title</th>
+                    <th >category_name</th>
+                    <th >create_time</th>
+                    <th >update_time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr >
+                    <tr  th:each="blog : ${blogs}">
+                        <td th:text="${blog.blog_id}">id</td>
+                        <td th:text="${blog.blog_title}">name</td>
+                        <td th:text="${blog.blog_category_name}">age</td>
+                        <td th:text="${blog.create_time}">sex</td>
+                        <td th:text="${blog.update_time}">address</td>
+                    </tr>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

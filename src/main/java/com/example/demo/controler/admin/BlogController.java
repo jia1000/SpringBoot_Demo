@@ -5,9 +5,13 @@ import com.example.demo.entity.blog.TableTbBlog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -28,6 +32,17 @@ public class BlogController {
         return "blog's content : " + content;
     }
 
+    @RequestMapping("/getblogs")
+    public String showAllBlogsWithHtml(Model model) throws Exception {
+        List<TableTbBlog> blogs = new ArrayList<TableTbBlog>();
+        for (Long i = 1L; i <= 5L;  i = i + 1) {
+            TableTbBlog blog = tableTbBlogMapper.selectByPrimaryKey(i);
+            blogs.add(blog);
+        }
+        model.addAttribute("headtext", "Blog List:");
+        model.addAttribute("blogs", blogs);
+        return "blog_thymeleaf";
+    }
 
 
 }
