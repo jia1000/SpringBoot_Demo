@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Thymeleaf test</title>
+    <style>
+        table{
+            width: 600px;
+            border: 2px solid #e33d00;
+            text-align: center;
+        }
+        thead{
+            background-color: orangered;
+        }
+    </style>
+</head>
+<body class="container">
+    <br/>
+    <h1 th:text="${headtext}">标题</h1>
+    <div class="with:80%">
+        <table  class="table table-hover">
+            <thead>
+                <tr>
+                    <th >id</th>
+                    <th >patient_id</th>
+                    <th >study_uid</th>
+                    <th >series_uid</th>
+                    <th >task_status</th>
+                    <th >start_time</th>
+                    <th >create_time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr >
+                    <tr  th:each="task : ${tasks}">
+                        <td th:text="${task.id}">id</td>
+                        <td th:text="${task.patient_id}">name</td>
+                        <td th:text="${task.study_uid}">age</td>
+                        <td th:text="${task.series_uid}">sex</td>
+                        <td th:text="${task.task_status}">address</td>
+                        <td th:text="${task.start_time}">address</td>
+                        <td th:text="${task.create_time}">address</td>
+                </tr>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

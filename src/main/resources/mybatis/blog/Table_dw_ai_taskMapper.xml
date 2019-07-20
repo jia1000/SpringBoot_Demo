@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.blog.Table_dw_ai_taskMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.blog.Table_dw_ai_task" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="patient_id" property="patient_id" jdbcType="VARCHAR" />
+    <result column="study_uid" property="study_uid" jdbcType="VARCHAR" />
+    <result column="series_uid" property="series_uid" jdbcType="VARCHAR" />
+    <result column="task_type" property="task_type" jdbcType="VARCHAR" />
+    <result column="input_dir" property="input_dir" jdbcType="VARCHAR" />
+    <result column="task_status" property="task_status" jdbcType="INTEGER" />
+    <result column="gpu" property="gpu" jdbcType="TINYINT" />
+    <result column="retry" property="retry" jdbcType="TINYINT" />
+    <result column="rebuild_retry" property="rebuild_retry" jdbcType="TINYINT" />
+    <result column="start_time" property="start_time" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="end_time" jdbcType="TIMESTAMP" />
+    <result column="process_host" property="process_host" jdbcType="VARCHAR" />
+    <result column="ai_version" property="ai_version" jdbcType="VARCHAR" />
+    <result column="is_delete" property="is_delete" jdbcType="BIT" />
+    <result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.example.demo.entity.blog.Table_dw_ai_task" extends="BaseResultMap" >
+    <result column="result" property="result" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, patient_id, study_uid, series_uid, task_type, input_dir, task_status, gpu, retry, 
+    rebuild_retry, start_time, end_time, process_host, ai_version, is_delete, create_time, 
+    update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    result
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dw_ai_task
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dw_ai_task
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.blog.Table_dw_ai_task" >
+    insert into dw_ai_task (id, patient_id, study_uid, 
+      series_uid, task_type, input_dir, 
+      task_status, gpu, retry, 
+      rebuild_retry, start_time, end_time, 
+      process_host, ai_version, is_delete, 
+      create_time, update_time, result
+      )
+    values (#{id,jdbcType=INTEGER}, #{patient_id,jdbcType=VARCHAR}, #{study_uid,jdbcType=VARCHAR}, 
+      #{series_uid,jdbcType=VARCHAR}, #{task_type,jdbcType=VARCHAR}, #{input_dir,jdbcType=VARCHAR}, 
+      #{task_status,jdbcType=INTEGER}, #{gpu,jdbcType=TINYINT}, #{retry,jdbcType=TINYINT}, 
+      #{rebuild_retry,jdbcType=TINYINT}, #{start_time,jdbcType=TIMESTAMP}, #{end_time,jdbcType=TIMESTAMP}, 
+      #{process_host,jdbcType=VARCHAR}, #{ai_version,jdbcType=VARCHAR}, #{is_delete,jdbcType=BIT}, 
+      #{create_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP}, #{result,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.entity.blog.Table_dw_ai_task" >
+    insert into dw_ai_task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="patient_id != null" >
+        patient_id,
+      </if>
+      <if test="study_uid != null" >
+        study_uid,
+      </if>
+      <if test="series_uid != null" >
+        series_uid,
+      </if>
+      <if test="task_type != null" >
+        task_type,
+      </if>
+      <if test="input_dir != null" >
+        input_dir,
+      </if>
+      <if test="task_status != null" >
+        task_status,
+      </if>
+      <if test="gpu != null" >
+        gpu,
+      </if>
+      <if test="retry != null" >
+        retry,
+      </if>
+      <if test="rebuild_retry != null" >
+        rebuild_retry,
+      </if>
+      <if test="start_time != null" >
+        start_time,
+      </if>
+      <if test="end_time != null" >
+        end_time,
+      </if>
+      <if test="process_host != null" >
+        process_host,
+      </if>
+      <if test="ai_version != null" >
+        ai_version,
+      </if>
+      <if test="is_delete != null" >
+        is_delete,
+      </if>
+      <if test="create_time != null" >
+        create_time,
+      </if>
+      <if test="update_time != null" >
+        update_time,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="patient_id != null" >
+        #{patient_id,jdbcType=VARCHAR},
+      </if>
+      <if test="study_uid != null" >
+        #{study_uid,jdbcType=VARCHAR},
+      </if>
+      <if test="series_uid != null" >
+        #{series_uid,jdbcType=VARCHAR},
+      </if>
+      <if test="task_type != null" >
+        #{task_type,jdbcType=VARCHAR},
+      </if>
+      <if test="input_dir != null" >
+        #{input_dir,jdbcType=VARCHAR},
+      </if>
+      <if test="task_status != null" >
+        #{task_status,jdbcType=INTEGER},
+      </if>
+      <if test="gpu != null" >
+        #{gpu,jdbcType=TINYINT},
+      </if>
+      <if test="retry != null" >
+        #{retry,jdbcType=TINYINT},
+      </if>
+      <if test="rebuild_retry != null" >
+        #{rebuild_retry,jdbcType=TINYINT},
+      </if>
+      <if test="start_time != null" >
+        #{start_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="end_time != null" >
+        #{end_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="process_host != null" >
+        #{process_host,jdbcType=VARCHAR},
+      </if>
+      <if test="ai_version != null" >
+        #{ai_version,jdbcType=VARCHAR},
+      </if>
+      <if test="is_delete != null" >
+        #{is_delete,jdbcType=BIT},
+      </if>
+      <if test="create_time != null" >
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null" >
+        #{update_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.blog.Table_dw_ai_task" >
+    update dw_ai_task
+    <set >
+      <if test="patient_id != null" >
+        patient_id = #{patient_id,jdbcType=VARCHAR},
+      </if>
+      <if test="study_uid != null" >
+        study_uid = #{study_uid,jdbcType=VARCHAR},
+      </if>
+      <if test="series_uid != null" >
+        series_uid = #{series_uid,jdbcType=VARCHAR},
+      </if>
+      <if test="task_type != null" >
+        task_type = #{task_type,jdbcType=VARCHAR},
+      </if>
+      <if test="input_dir != null" >
+        input_dir = #{input_dir,jdbcType=VARCHAR},
+      </if>
+      <if test="task_status != null" >
+        task_status = #{task_status,jdbcType=INTEGER},
+      </if>
+      <if test="gpu != null" >
+        gpu = #{gpu,jdbcType=TINYINT},
+      </if>
+      <if test="retry != null" >
+        retry = #{retry,jdbcType=TINYINT},
+      </if>
+      <if test="rebuild_retry != null" >
+        rebuild_retry = #{rebuild_retry,jdbcType=TINYINT},
+      </if>
+      <if test="start_time != null" >
+        start_time = #{start_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="end_time != null" >
+        end_time = #{end_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="process_host != null" >
+        process_host = #{process_host,jdbcType=VARCHAR},
+      </if>
+      <if test="ai_version != null" >
+        ai_version = #{ai_version,jdbcType=VARCHAR},
+      </if>
+      <if test="is_delete != null" >
+        is_delete = #{is_delete,jdbcType=BIT},
+      </if>
+      <if test="create_time != null" >
+        create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null" >
+        update_time = #{update_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.demo.entity.blog.Table_dw_ai_task" >
+    update dw_ai_task
+    set patient_id = #{patient_id,jdbcType=VARCHAR},
+      study_uid = #{study_uid,jdbcType=VARCHAR},
+      series_uid = #{series_uid,jdbcType=VARCHAR},
+      task_type = #{task_type,jdbcType=VARCHAR},
+      input_dir = #{input_dir,jdbcType=VARCHAR},
+      task_status = #{task_status,jdbcType=INTEGER},
+      gpu = #{gpu,jdbcType=TINYINT},
+      retry = #{retry,jdbcType=TINYINT},
+      rebuild_retry = #{rebuild_retry,jdbcType=TINYINT},
+      start_time = #{start_time,jdbcType=TIMESTAMP},
+      end_time = #{end_time,jdbcType=TIMESTAMP},
+      process_host = #{process_host,jdbcType=VARCHAR},
+      ai_version = #{ai_version,jdbcType=VARCHAR},
+      is_delete = #{is_delete,jdbcType=BIT},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP},
+      result = #{result,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.blog.Table_dw_ai_task" >
+    update dw_ai_task
+    set patient_id = #{patient_id,jdbcType=VARCHAR},
+      study_uid = #{study_uid,jdbcType=VARCHAR},
+      series_uid = #{series_uid,jdbcType=VARCHAR},
+      task_type = #{task_type,jdbcType=VARCHAR},
+      input_dir = #{input_dir,jdbcType=VARCHAR},
+      task_status = #{task_status,jdbcType=INTEGER},
+      gpu = #{gpu,jdbcType=TINYINT},
+      retry = #{retry,jdbcType=TINYINT},
+      rebuild_retry = #{rebuild_retry,jdbcType=TINYINT},
+      start_time = #{start_time,jdbcType=TIMESTAMP},
+      end_time = #{end_time,jdbcType=TIMESTAMP},
+      process_host = #{process_host,jdbcType=VARCHAR},
+      ai_version = #{ai_version,jdbcType=VARCHAR},
+      is_delete = #{is_delete,jdbcType=BIT},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
