@@ -41,5 +41,9 @@ public class BlogController {
         return "blog_thymeleaf";
     }
 
+    @RequestMapping("/ele")
+    public String showElementUI() {
+        return "blog/element_ui_test";
+    }
 
 }
