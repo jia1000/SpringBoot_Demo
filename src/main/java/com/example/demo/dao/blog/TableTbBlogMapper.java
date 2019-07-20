@@ -2,6 +2,9 @@ package com.example.demo.dao.blog;
 
 import com.example.demo.entity.blog.TableTbBlog;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 @Mapper   // 需要手动添加该注解
 public interface TableTbBlogMapper {
@@ -18,4 +21,7 @@ public interface TableTbBlogMapper {
     int updateByPrimaryKeyWithBLOBs(TableTbBlog record);
 
     int updateByPrimaryKey(TableTbBlog record);
+
+    @Select("SELECT * from tb_blog")
+    List<TableTbBlog> getLists();
 }

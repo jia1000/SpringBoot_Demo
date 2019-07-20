@@ -34,11 +34,8 @@ public class BlogController {
 
     @RequestMapping("/getblogs")
     public String showAllBlogsWithHtml(Model model) throws Exception {
-        List<TableTbBlog> blogs = new ArrayList<TableTbBlog>();
-        for (Long i = 1L; i <= 5L;  i = i + 1) {
-            TableTbBlog blog = tableTbBlogMapper.selectByPrimaryKey(i);
-            blogs.add(blog);
-        }
+        List<TableTbBlog> blogs = tableTbBlogMapper.getLists();
+
         model.addAttribute("headtext", "Blog List:");
         model.addAttribute("blogs", blogs);
         return "blog_thymeleaf";
