@@ -32,7 +32,7 @@ public class BlogController {
         return "blog's content : " + content;
     }
 
-    @RequestMapping("/getblogs")
+    @RequestMapping("/blogs")
     public String showAllBlogsWithHtml(Model model) throws Exception {
         List<TableTbBlog> blogs = tableTbBlogMapper.getLists();
 
@@ -40,6 +40,13 @@ public class BlogController {
         model.addAttribute("blogs", blogs);
         return "blog_thymeleaf";
     }
+
+    // 响应从html网页中的事件
+    @RequestMapping("blogs/edit")
+    public String edit(){//HttpServletRequest request) {
+        return "blog/edit";
+    }
+
 
     @RequestMapping("/ele")
     public String showElementUI() {

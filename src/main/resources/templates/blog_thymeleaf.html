@@ -17,6 +17,21 @@
 <body class="container">
     <br/>
     <h1 th:text="${headtext}">标题</h1>
+
+    <div class="card-header">
+        <h3 class="card-title">博客管理</h3>
+    </div>
+
+    <div class="card-body">
+        <div>
+            <button onclick="addBlog()">新增N</button>
+            <button onclick="editBlog()">修改</button>
+            <button onclick="deleteBlog()">删除</button>
+            <input type="text" placeholder="关键字(标题/分类)" id="keyword"/>
+            <button onclick="search()">搜索</button>
+        </div>
+    </div>
+
     <div class="with:80%">
         <table  class="table table-hover">
             <thead>
@@ -46,4 +61,12 @@
         </table>
     </div>
 </body>
+
+<!-- 使用thymeleaf方式-->
+<script type="text/javascript" th:inline="javascript">
+    <!-- 调用Controller类的函数 -->
+    function addBlog() {
+        location.href = "blogs/edit";
+    }
+</script>
 </html>
