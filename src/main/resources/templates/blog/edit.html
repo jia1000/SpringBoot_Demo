@@ -5,6 +5,36 @@
     <title>edit title</title>
 </head>
 <body>
-<button >edit body</button>
+    <div>
+        <h3>发布文章</h3>
+    </div>
+
+    <div>
+        <input type="text" id="blogName" name="blogNmae" placeholder="*请输入文章标题">
+        <input type="text" id="blogTags" name="blogTags" placeholder="请输入文件标签">
+    </div>
+    <div>
+        <input type="text" id="blogSubUrl" name="blogSubUrl" placeholder="请输入自定义路径">
+        <input type="text" id="blogCategoryId" name="blogCategoryId" placeholder="请输入分类">
+    </div>
+    <div ></div>
+    <div>
+        <textarea type="text" id="blogInfo" name="blogInfo" >
+        </textarea>
+    </div>
+
+    <div>
+        <button id="cancleButton">返回文件列表</button>
+        <button id="confirmButton" onclick="onSaveButton()">保存文章</button>
+    </div>
 </body>
+
+<!-- 使用thymeleaf方式-->
+<script type="text/javascript" th:inline="javascript">
+    <!-- 调用Controller类的函数 -->
+    function onSaveButton() {
+        location.href = "save";
+    }
+</script>
+
 </html>

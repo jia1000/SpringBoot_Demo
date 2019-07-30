@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +48,13 @@ public class BlogController {
         return "blog/edit";
     }
 
+    // 响应从html网页中的事件
+    @RequestMapping("blogs/save")
+    public String saveBlog(HttpServletRequest request) {
+        String blogNmae = request.getParameter("blogName");
+        System.out.println("haha :blogNmae : " + blogNmae);
+        return "blog/save";
+    }
 
     @RequestMapping("/ele")
     public String showElementUI() {
