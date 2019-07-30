@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- 引入样式CSS ，有关element-ui -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+<!-- 需要定义一个id给整个element-ui  ,  否则不能正常显示出element-ui-->
+<div id="app">
+    <el-row>
+        <el-button >默认按钮</el-button>
+        <el-button type="primary">主要按钮</el-button>
+        <el-button type="success" >成功按钮</el-button>
+        <el-button type="info" >信息按钮</el-button>
+        <el-button type="danger">危险按钮</el-button>
+    </el-row>
+    <el-row>
+        <el-button plain>默认按钮</el-button>
+        <el-button type="primary" plain>主要按钮</el-button>
+        <el-button type="success"  plain>成功按钮</el-button>
+        <el-button type="info"  plain>信息按钮</el-button>
+        <el-button type="danger" plain>危险按钮</el-button>
+    </el-row>
+    <el-row>
+        <el-button round>圆角按钮</el-button>
+        <el-button type="primary" round>主要按钮</el-button>
+        <el-button type="success" round>成功按钮</el-button>
+        <el-button type="info" round>信息按钮</el-button>
+        <el-button type="warning" round>警告按钮</el-button>
+        <el-button type="danger" round>危险按钮</el-button>
+    </el-row>
+    <el-row>
+        <el-button icon="el-icon-search" circle></el-button>
+        <el-button type="primary" icon="el-icon-edit" circle disabled></el-button>
+        <el-button type="success" icon="el-icon-check" circle></el-button>
+        <el-button type="info" icon="el-icon-message" circle></el-button>
+        <el-button type="warning" icon="el-icon-star-on" circle></el-button>
+        <el-button type="danger" icon="el-icon-delete" circle></el-button>
+    </el-row>
+    <!--  图标按钮 : 可以控制文本左右位置-->
+    <el-row>
+        <el-button type="primary" icon="el-icon-search">搜索</el-button>
+        <el-button type="primary" icon="el-icon-upload ei-icon-right">上传</el-button>
+    </el-row>
+    <!-- 按钮组 -->
+    <el-button-group>
+        <el-button type="primary" icon="el-icon-arrow-left">上一页</el-button>
+        <el-button type="primary">下一页
+            <i class="el-icon-arrow-right el-icon--right"></i>
+        </el-button>
+    </el-button-group>
+    <el-button-group>
+        <el-button type="primary" icon="el-icon-edit"></el-button>
+        <el-button type="primary" icon="el-icon-share"></el-button>
+        <el-button type="primary" icon="el-icon-delete"></el-button>
+    </el-button-group>
+    <!-- 加载中-->
+    <el-row>
+        <el-button type="primary" :loading="true">加载中</el-button>
+    </el-row>
+    <!-- 修改按钮尺寸-->
+    <el-row>
+        <el-button type="primary">默认按钮尺寸</el-button>
+        <el-button type="primary" size="medium">中型按钮尺寸</el-button>
+        <el-button type="primary" size="small">小型按钮尺寸</el-button>
+        <el-button type="primary" size="mini">超小型按钮尺寸</el-button>
+    </el-row>
+</div>
+</body>
+
+<!-- 先导入vue -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- 引入组件库element-ui -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script>
+    vue_button =  new Vue({
+        el: '#app'
+    })
+</script>
+</html>
