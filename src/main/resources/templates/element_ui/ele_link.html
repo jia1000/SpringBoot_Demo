@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- 引入样式CSS ，有关element-ui -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+    <!-- 需要定义一个id给整个element-ui  ,  否则不能正常显示出element-ui-->
+    <div id="app">
+        <div>
+            <!-- 基础文本链接用法-->
+            <el-link href="https://www.baidu.com" target="_blank">默认链接</el-link>
+            <el-link type="primary">主要链接</el-link>
+            <!--禁用链接-->
+            <el-link type="success" disabled>禁用链接</el-link>
+            <!--下划线  默认为true-->
+            <el-link :underlink="false">无下划线</el-link>
+            <el-link :underlink="true">无下划线</el-link>
+
+        </div>
+    </div>
+</body>
+
+<!-- 先导入vue -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- 引入组件库element-ui -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script>
+    vue_button =  new Vue({
+        el: '#app'
+    })
+</script>
+
+</html>
