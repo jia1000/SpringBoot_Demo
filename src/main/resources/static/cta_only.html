@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery/1.11.3/jquery-ui.min.css">
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery-ui.min.js"></script>
+
+    <script language="JavaScript" type="text/javascript" src="./cta_only_js.js">
+       
+    </script>
+</head>
+
+<body style="background:#FFF;">
+    <div style="margin-bottom:20px;">
+
+        <select id="request_type" title="rq type" width="300">
+            <option> VR</option>
+            <option>MPR</option>
+            <option>CPR</option>
+        </select>
+        <select id="image_operation" title="operation" >
+            <option>Zoom</option>
+            <option>Move</option>
+        </select>
+        <select id="image_paras" text="paras" title="paras" >
+            <option>0.5</option>
+            <option>1.0</option>
+            <option>2.0</option>
+        </select>
+        <button onclick="do3dPostStringUesJson();" >刷新图片</button>
+        <br />
+
+        <!-- timer -->
+        <p id="begintime">begin time:</p>
+        <p id="middletime">middle time:</p>
+        <p id="endtime">end time: </p>
+
+        <input type="file" id="postDirUseBuffer"  multiple onchange="jsReadFiles(this.files)" title="选择图像目录" />
+        <input type="button" value="发送一组Dicom文件到C++(buffer)" onclick="doPostMultiFilesUesBuffer();" />
+        <br /><br />
+
+        <label>发送文本</label>
+        <form >
+            <textarea  id="recv_text" cols="50" rows="3" >在这里输入内容.1..</textarea>
+        </form>
+    </div>
+
+    <!-- display image -->
+    <div>
+        <table border="1"  width="600">
+            <tr>
+                <td>
+                    <img src="#" id="imgtag_mpr" title="mpr" width="150"/>
+                </td>
+                <td>
+                    <img src="#" id="imgtag_vr" title="vr" width="150" />
+                </td>
+                <td>
+                    <img src="#" id="imgtag_cpr" title="cpr" width="150" />
+                </td>
+                <td>
+                    <img src="#" id="imgtag_mip" title="mip" width="150" />
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+</body>
+</html>
