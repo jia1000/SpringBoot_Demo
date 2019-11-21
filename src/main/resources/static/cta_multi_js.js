@@ -13,6 +13,8 @@
         var timeid = 0;
         var play_count = 1;
 
+        var g_json_str = new Uint8Array(1 * 1000 * 1000);
+
      /// 点击“发送字符串到C++”后， c++端返回命令，用来显示发送的次数
         function jsSendCount(text) {
             var t = document.getElementById("recv_text");
@@ -105,7 +107,7 @@
 
         function doRequestImageHandle(request_type, image_operation, image_paras) {
             // 播放100次后，清除定时器；
-            if (play_count > 10) {
+            if (play_count > 100) {
                 //window.clearInterval(timeid);
                 play_count = 1;
                 return;
@@ -120,13 +122,25 @@
             // json_data.image_data = arraybuffer2base64(fileString);
             // json_data.file_index = 4;
 
-            var json_str = JSON.stringify(json_data);
-            var url = 'http://image_controller/';
+            // var json_str = JSON.stringify(json_data);
+
+            // var json_str = "hellotest"; // for web test
+            // json_str += "\0";
+            // json_str += "add append.";
+
+            // var json_str = new Uint8Array([21,31, 0, 0, 5]);
+            // var json_str = new Uint8Array(1 *256 * 1000);
+
+            // var url = 'http://image_controller/clear_files';
+            // var url = 'http://image_controller/write_file/5';
+            // var url = 'http://image_controller/write_file/';
+            url += play_count;
+            var url = 'http://image_controller/read_file/1';
 
             var xhr = new XMLHttpRequest();
             //  第3个参数async为true，表示为异步，否则为同步
             xhr.open('POST', url, true);
-            xhr.responseType = "text";//"arraybuffer";
+            xhr.responseType = "arraybuffer";//"text";
 
             // 请求成功回调函数
             xhr.onload = function (oEvent) {
@@ -135,7 +149,7 @@
                     // 使用json格式
                     //displayContent(xhr.response, true);
                     // 不使用json
-                    showImageByArrayBuffer("", xhr.response);
+                    //showImageByArrayBuffer("", xhr.response);
                     //
                     writeTime("#endtime", " - endtime");
 
@@ -144,8 +158,56 @@
 
                 }
             };
-            xhr.send(json_str);
+            xhr.send(g_json_str);
         }
+
+        // 测试 获取dicom文件的tags
+        function doTagTestUesJson() {
+             var json_data = {};
+             //alert(request_type + "  " + image_operation + " " + image_paras);
+             var url = 'http://tag_controller/wadouri://172.16.10.32/pacs/v1/dicom/filePath/downloadDicomFile?filePath=/data1/inputdata/800001/569714C1/0D319228/1.dcm';
+
+             var xhr = new XMLHttpRequest();
+             //  第3个参数async为true，表示为异步，否则为同步
+             xhr.open('POST', url, true);
+             xhr.responseType = "text";
+
+             // 请求成功回调函数
+             xhr.onload = function (oEvent) {
+                 var json_response = xhr.response;
+
+                 if (json_response) {
+                     // 使用json格式
+                     alert("response tags : " + json_response);
+                     console.log("response tags : " + json_response);
+                 }
+             };
+             xhr.send(g_json_str);
+         }
+
+         // 测试获取Dicom文件的Pixeldata数据
+         function doPixelDataUseArrarbuffer() {
+             var json_data = {};
+             //alert(request_type + "  " + image_operation + " " + image_paras);
+             var url = 'http://pixel_controller/wadouri://172.16.10.32/pacs/v1/dicom/filePath/downloadDicomFile?filePath=/data1/inputdata/800001/569714C1/0D319228/1.dcm';
+
+             var xhr = new XMLHttpRequest();
+             //  第3个参数async为true，表示为异步，否则为同步
+             xhr.open('POST', url, true);
+             xhr.responseType = "application/octet-stream";
+
+             // 请求成功回调函数
+             xhr.onload = function (oEvent) {
+                 var arrayBuffer = xhr.response;
+                 ;
+
+                 if (arrayBuffer) {
+                     // alert("response pixelint : " + arrayBuffer);
+                     alert("response pixel len : " + arrayBuffer.length);
+                 }
+             };
+             xhr.send(g_json_str);
+         }
         ///显示图像和信息
         function displayContent(text, finished) {
             // 解析json数据
@@ -155,6 +217,9 @@
             var text3 = json_data.image_paras;
             var text4 = json_data.image_data;
 
+            var length = text4.length;
+
+            alert("text4'length : " +  length);
             // 显示传回的参数
             var t = document.getElementById("recv_text");
             var text_paras = "";
