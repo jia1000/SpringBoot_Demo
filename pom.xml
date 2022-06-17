@@ -135,7 +135,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.35</version>
+            <version>1.2.83</version>
         </dependency>
 
         <!-- mybatis 使用：3、 引入Mybaits自动生成依赖时，这里会报错， 先关闭-->
