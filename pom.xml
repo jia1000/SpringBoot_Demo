@@ -86,7 +86,7 @@
             <!--<scope>runtime</scope>-->
             <!-- mybatis 使用：4、在引入mybaits自动生成配置功能时， 不升级到版本8，会有caching_sha2_password告警 -->
             <!-- 有可能引起 driver-class-name=com.mysql.cj.jdbc.Driver 变为 com.mysql.jdbc.Driver -->
-             <version>8.0.11</version>
+             <version>8.0.28</version>
         </dependency>
 
         <!-- 引入 ? 依赖 -->
@@ -198,7 +198,7 @@
                         <artifactId>mysql-connector-java</artifactId>
                         <!--<scope>runtime</scope>-->
                         <!-- mybatis 使用：5、使用较早版本，会有个caching_sha2_password的告警 -->
-                         <version>8.0.11</version>
+                         <version>8.0.28</version>
                     </dependency>
                 </dependencies>
             </plugin>
